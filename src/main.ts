@@ -9,4 +9,7 @@ function main() {
   }
 }
 
+// @ts-ignore
+window.main = main;
+
 document.addEventListener('DOMContentLoaded', main);
