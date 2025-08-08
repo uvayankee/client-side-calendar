@@ -4,7 +4,7 @@
   "description": "A simple calendar application",
   "main": "dist/index.js",
   "scripts": {
-    "build": "mkdir -p dist && esbuild src/main.ts --bundle --outfile=dist/index.js --sourcemap && cp src/index.html dist/ && cp src/style.css dist/",
+    "build": "mkdir -p dist && esbuild src/main.ts --bundle --format=iife --outfile=dist/index.js --sourcemap && cp src/index.html dist/ && cp src/style.css dist/",
     "test": "jest"
   },
   "keywords": [],
