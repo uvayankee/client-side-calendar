@@ -1,0 +1,13 @@
+body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#calendar-container {
+    width: 90%;
+    max-width: 800px;
+    border: 1px solid #ccc;
+    padding: 1rem;
+}

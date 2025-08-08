@@ -4,7 +4,7 @@
   "description": "A simple calendar application",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "mkdir -p dist && esbuild src/main.ts --bundle --outfile=dist/index.js --sourcemap && cp src/index.html dist/ && cp src/style.css dist/",
     "test": "jest"
   },
   "keywords": [],
@@ -12,6 +12,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^30.0.0",
+    "esbuild": "^0.25.8",
     "jest": "^30.0.5",
     "ts-jest": "^29.4.1",
     "typescript": "^5.9.2"
