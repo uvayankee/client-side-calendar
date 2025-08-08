@@ -1,4 +1,4 @@
-Always follow the instructions in plan.md. When I say "plan", find the next feature in plan.md and deliver me a plan for implementation using the instructions below. When I am happy with the plan, I will say "go".  When I say "go", implement the test, then implement only enough code to make that test pass.
+Always follow the instructions in plan.md. Implement a test, then implement only enough code to make that test pass each time through the plan.  Once you have made a branch, publish it.  Then watch for the results of the build.  If it passes, it will be merged.  Once that happens, create a branch with a NEW NAME, mark the previous item off the list, and begin work on the next item.
 
 # ROLE AND EXPERTISE
 
