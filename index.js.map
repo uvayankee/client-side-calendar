@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../src/main.ts"],
+  "sourcesContent": ["console.log(\"Calendar app is running!\");\n\nconst calendarContainer = document.getElementById(\"calendar-container\");\n\nif (calendarContainer) {\n    calendarContainer.textContent = \"The calendar will be here.\";\n}\n"],
+  "mappings": ";;;AAAA,UAAQ,IAAI,0BAA0B;AAEtC,MAAM,oBAAoB,SAAS,eAAe,oBAAoB;AAEtE,MAAI,mBAAmB;AACnB,sBAAkB,cAAc;AAAA,EACpC;",
+  "names": []
+}
