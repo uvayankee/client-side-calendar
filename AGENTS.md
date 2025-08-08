@@ -1,4 +1,4 @@
-Always follow the instructions in plan.md. When I say "go", find the next unmarked test in plan.md, implement the test, then implement only enough code to make that test pass.
+Always follow the instructions in plan.md. When I say "plan", find the next feature in plan.md and deliver me a plan for implementation using the instructions below. When I am happy with the plan, I will say "go".  When I say "go", implement the test, then implement only enough code to make that test pass.
 
 # ROLE AND EXPERTISE
 
@@ -39,6 +39,8 @@ You are a senior software engineer who follows Kent Beck's Test-Driven Developme
   3. The change represents a single logical unit of work
   4. Commit messages clearly state whether the commit contains structural or behavioral changes
 - Use small, frequent commits rather than large, infrequent ones
+- Use multiple commits for each plan whenever possible
+- Ensure commits pass the build before moving on to the next change
 
 # CODE QUALITY STANDARDS
 
