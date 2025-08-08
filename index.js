@@ -20,6 +20,7 @@
       calendar.render();
     }
   }
+  window.main = main;
   document.addEventListener("DOMContentLoaded", main);
 })();
 //# sourceMappingURL=index.js.map
