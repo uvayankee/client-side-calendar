@@ -13,10 +13,13 @@
   };
 
   // src/main.ts
-  var calendarContainer = document.getElementById("calendar-container");
-  if (calendarContainer) {
-    const calendar = new Calendar(calendarContainer);
-    calendar.render();
+  function main() {
+    const calendarContainer = document.getElementById("calendar-container");
+    if (calendarContainer) {
+      const calendar = new Calendar(calendarContainer);
+      calendar.render();
+    }
   }
+  document.addEventListener("DOMContentLoaded", main);
 })();
 //# sourceMappingURL=index.js.map
