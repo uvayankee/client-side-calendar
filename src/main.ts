@@ -1,8 +1,12 @@
 import { Calendar } from './calendar';
 
-const calendarContainer = document.getElementById('calendar-container');
+function main() {
+  const calendarContainer = document.getElementById('calendar-container');
 
-if (calendarContainer) {
-  const calendar = new Calendar(calendarContainer);
-  calendar.render();
+  if (calendarContainer) {
+    const calendar = new Calendar(calendarContainer);
+    calendar.render();
+  }
 }
+
+document.addEventListener('DOMContentLoaded', main);
