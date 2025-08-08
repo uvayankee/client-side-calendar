@@ -1,7 +1,8 @@
-console.log("Calendar app is running!");
+import { Calendar } from './calendar';
 
-const calendarContainer = document.getElementById("calendar-container");
+const calendarContainer = document.getElementById('calendar-container');
 
 if (calendarContainer) {
-    calendarContainer.textContent = "The calendar will be here.";
+  const calendar = new Calendar(calendarContainer);
+  calendar.render();
 }
