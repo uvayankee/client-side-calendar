@@ -1,4 +1,4 @@
-import { renderCalendar } from './calendar';
+import { renderCalendar } from './calendar.js';
 
 function main() { // Initialize the calendar application with linting
   const calendarContainer = document.getElementById('calendar-container');
@@ -8,7 +8,7 @@ function main() { // Initialize the calendar application with linting
   }
 }
 
-// @ts-ignore
+// @ts-expect-error: main function is globally exposed for Cypress tests
 window.main = main;
 
 document.addEventListener('DOMContentLoaded', main);
