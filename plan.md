@@ -10,8 +10,8 @@
 9. [x] The user should be able to select the year and month from drop downs on the calendar 
 10. [x] The user should be able to create an event
 11. [x] The user should be able to save events between sessions
-12. Add husky to the repo - ensure precommit runs build and test
-13. Implement eslint and add linting to the precommit
+12. [x] Add husky to the repo - ensure precommit runs build and test
+13. [x] Implement eslint and add linting to the precommit
 14. The full month calendar view is not displaying.  The user only sees the month and year name, but not a grid of the days.  This will likely require cypress testing to solve
 15. The user should be able to choose a weekly view
 16. The user should be able to to click forward a week and backward a week in the weekly view
