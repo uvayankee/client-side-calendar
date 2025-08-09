@@ -7,9 +7,9 @@
 7. [x] Augment the calendar to allow the user to click forward a month and back a month
 8. Modify the github actions to only run on PR, not also on push
 9. The calendar should show all the days of the month week by week, with each week starting on Sunday.
-10. Augment the calendar to allow the user to select the year and month from drop downs
-11. Augment the calendar to allow the user to create an event
-12. Augment the calnedar to use client storage to save events
-13. Augment the calendar to allow the user to choose a weekly view
-14. Augment the calendar weekly view to allow the user to click forward a week and backward a week
-15. Augment the calendar to allow the user to choose a daily view
+10. The user should be able to select the year and month from drop downs on the calendar 
+11. The user should be able to create an event
+12. The user should be able to save events between sessions
+13. The user should be able to choose a weekly view
+14. The user should be able to to click forward a week and backward a week in the weekly view
+15. The user should be able to choose a daily view
