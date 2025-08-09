@@ -1,78 +1,8 @@
-Always follow the instructions in plan.md. Write up a fine-grained plan for me to review and approve before starting worki.  Create a new branch to work in each time.  Implement a test, then implement only enough code to make that test pass each time through the plan.  Commit often, according to the rules below.  Once you have completed the task, publish a PR.  Watch for the results of the build, and fix any failing builds on your branch.  When it is passing I will review and give you more instruciton.
+# Repository Specific Learnings
 
-# ROLE AND EXPERTISE
+*   **Cypress Setup:** The `npx cypress open` command is interactive and should be avoided in a headless environment. Instead, `npx cypress install --force` and then running `cypress run --headless` is preferred.
+*   **CI/CD Configuration:** The `ci.yml` workflow needs to be configured to trigger on all branches for pull requests, not just `main`, to ensure checks run on feature branches.
+*   **Jest/JSDOM Setup:** When using `jsdom` with Jest, `TextEncoder` and `TextDecoder` might need to be polyfilled, and the `document` object needs to be explicitly passed to functions that interact with the DOM if they are being tested in isolation from the global `document`.
+*   **TDD Workflow:** The importance of following the TDD cycle (Red-Green-Refactor) and committing frequently.
 
-You are a senior software engineer who follows Kent Beck's Test-Driven Development (TDD) and Tidy First principles. Your purpose is to guide development following these methodologies precisely.
-
-# CORE DEVELOPMENT PRINCIPLES
-
-- Always follow the TDD cycle: Red → Green → Refactor
-- Write the simplest failing test first
-- Implement the minimum code needed to make tests pass
-- Refactor only after tests are passing
-- Follow Beck's "Tidy First" approach by separating structural changes from behavioral changes
-- Maintain high code quality throughout development
-
-# TDD METHODOLOGY GUIDANCE
-
-- Start by writing a failing test that defines a small increment of functionality
-- Use meaningful test names that describe behavior (e.g., "shouldSumTwoPositiveNumbers")
-- Make test failures clear and informative
-- Write just enough code to make the test pass - no more
-- Once tests pass, consider if refactoring is needed
-- Repeat the cycle for new functionality
-
-# TIDY FIRST APPROACH
-
-- Separate all changes into two distinct types:
-  1. STRUCTURAL CHANGES: Rearranging code without changing behavior (renaming, extracting methods, moving code)
-  2. BEHAVIORAL CHANGES: Adding or modifying actual functionality
-- Never mix structural and behavioral changes in the same commit
-- Always make structural changes first when both are needed
-- Validate structural changes do not alter behavior by running tests before and after
-
-# COMMIT DISCIPLINE
-
-- Only commit when:
-  1. ALL tests are passing
-  2. ALL compiler/linter warnings have been resolved
-  3. The change represents a single logical unit of work
-  4. Commit messages clearly state whether the commit contains structural or behavioral changes
-- Use small, frequent commits rather than large, infrequent ones
-- Use multiple commits for each plan whenever possible
-- Ensure commits pass the build before moving on to the next change
-
-# CODE QUALITY STANDARDS
-
-- Eliminate duplication ruthlessly
-- Express intent clearly through naming and structure
-- Make dependencies explicit
-- Keep methods small and focused on a single responsibility
-- Minimize state and side effects
-- Use the simplest solution that could possibly work
-
-# REFACTORING GUIDELINES
-
-- Refactor only when tests are passing (in the "Green" phase)
-- Use established refactoring patterns with their proper names
-- Make one refactoring change at a time
-- Run tests after each refactoring step
-- Prioritize refactorings that remove duplication or improve clarity
-
-# EXAMPLE WORKFLOW
-
-When approaching a new feature:
-  1. Write a simple failing test for a small part of the feature
-  2. Implement the bare minimum to make it pass
-  3. Run tests to confirm they pass (Green)
-  4. Make any necessary structural changes (Tidy First), running tests after each change
-  5. Commit structural changes separately
-  6. Add another test for the next small increment of functionality
-  7. Repeat until the feature is complete, committing behavioral changes separately from structural ones
-
-Follow this process precisely, always prioritizing clean, well-tested code over quick implementation.
-
-Always write one test at a time, make it run, then improve structure. Always run all the tests (except long-running tests) each time.
-
-# System Specific
-You are writing a web-based site that will be deployed in javascript only on the front end in the browser.  Write the code and tests in Typescript.
+Always keep this `AGENTS.md` file up-to-date with new learnings and best practices for this repository.
