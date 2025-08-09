@@ -1,23 +1,24 @@
 "use strict";
 (() => {
   // src/calendar.ts
-  var Calendar = class {
-    constructor(container) {
-      this.container = container;
+  function renderCalendar(container, document2) {
+    if (container) {
+      const calendar = document2.createElement("div");
+      calendar.classList.add("calendar");
+      const monthName = (/* @__PURE__ */ new Date()).toLocaleString("default", { month: "long" });
+      const monthNameElement = document2.createElement("div");
+      monthNameElement.classList.add("month-name");
+      monthNameElement.textContent = monthName;
+      calendar.appendChild(monthNameElement);
+      container.appendChild(calendar);
     }
-    render() {
-      const calendarDiv = document.createElement("div");
-      calendarDiv.className = "calendar";
-      this.container.appendChild(calendarDiv);
-    }
-  };
+  }
 
   // src/main.ts
   function main() {
     const calendarContainer = document.getElementById("calendar-container");
     if (calendarContainer) {
-      const calendar = new Calendar(calendarContainer);
-      calendar.render();
+      renderCalendar(calendarContainer, document);
     }
   }
   window.main = main;
