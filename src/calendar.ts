@@ -34,6 +34,39 @@ export function renderCalendar(container: HTMLElement | null, document: Document
     header.appendChild(nextButton);
 
     calendar.appendChild(header);
+
+    const daysGrid = document.createElement('div');
+    daysGrid.classList.add('days-grid');
+
+    const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    weekdays.forEach(day => {
+      const weekdayElement = document.createElement('div');
+      weekdayElement.classList.add('weekday');
+      weekdayElement.textContent = day;
+      daysGrid.appendChild(weekdayElement);
+    });
+
+    const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+    const lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    const numDaysInMonth = lastDayOfMonth.getDate();
+    const firstDayOfWeek = firstDayOfMonth.getDay(); // 0 for Sunday, 1 for Monday, etc.
+
+    // Add empty divs for days before the first day of the month
+    for (let i = 0; i < firstDayOfWeek; i++) {
+      const emptyDay = document.createElement('div');
+      emptyDay.classList.add('day', 'empty');
+      daysGrid.appendChild(emptyDay);
+    }
+
+    // Add days of the month
+    for (let i = 1; i <= numDaysInMonth; i++) {
+      const dayElement = document.createElement('div');
+      dayElement.classList.add('day');
+      dayElement.textContent = i.toString();
+      daysGrid.appendChild(dayElement);
+    }
+
+    calendar.appendChild(daysGrid);
     container.appendChild(calendar);
   }
 }
