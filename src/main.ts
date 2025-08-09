@@ -1,4 +1,4 @@
-import { renderCalendar } from './calendar';
+import { renderCalendar } from './calendar.js';
 
 function main() { // Initialize the calendar application with linting
   const calendarContainer = document.getElementById('calendar-container');
