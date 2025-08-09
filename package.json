@@ -5,14 +5,18 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "mkdir -p dist && esbuild src/main.ts --bundle --format=iife --outfile=dist/index.js --sourcemap && cp src/index.html dist/ && cp src/style.css dist/",
-    "test": "jest"
+    "test": "jest",
+    "serve": "npx http-server dist",
+    "cy:run": "cypress run"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^30.0.0",
+    "cypress": "^14.5.4",
     "esbuild": "^0.25.8",
+    "http-server": "^14.1.1",
     "jest": "^30.0.5",
     "jest-environment-jsdom": "^30.0.5",
     "ts-jest": "^29.4.1",
