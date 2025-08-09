@@ -1,13 +1,14 @@
-export class Calendar {
-  private container: HTMLElement;
+export function renderCalendar(container: HTMLElement | null, document: Document): void {
+  if (container) {
+    const calendar = document.createElement('div');
+    calendar.classList.add('calendar');
 
-  constructor(container: HTMLElement) {
-    this.container = container;
-  }
+    const monthName = new Date().toLocaleString('default', { month: 'long' });
+    const monthNameElement = document.createElement('div');
+    monthNameElement.classList.add('month-name');
+    monthNameElement.textContent = monthName;
+    calendar.appendChild(monthNameElement);
 
-  public render(): void {
-    const calendarDiv = document.createElement('div');
-    calendarDiv.className = 'calendar';
-    this.container.appendChild(calendarDiv);
+    container.appendChild(calendar);
   }
 }

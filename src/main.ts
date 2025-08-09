@@ -1,11 +1,10 @@
-import { Calendar } from './calendar';
+import { renderCalendar } from './calendar';
 
 function main() {
   const calendarContainer = document.getElementById('calendar-container');
 
   if (calendarContainer) {
-    const calendar = new Calendar(calendarContainer);
-    calendar.render();
+    renderCalendar(calendarContainer, document);
   }
 }
 
