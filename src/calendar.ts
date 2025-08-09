@@ -18,10 +18,43 @@ export function renderCalendar(container: HTMLElement | null, document: Document
     });
     header.appendChild(prevButton);
 
-    const monthNameElement = document.createElement('div');
-    monthNameElement.classList.add('month-name');
-    monthNameElement.textContent = date.toLocaleString('default', { month: 'long', year: 'numeric' });
-    header.appendChild(monthNameElement);
+    const monthSelect = document.createElement('select');
+    monthSelect.classList.add('month-select');
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    months.forEach((month, index) => {
+      const option = document.createElement('option');
+      option.value = index.toString();
+      option.textContent = month;
+      if (index === date.getMonth()) {
+        option.selected = true;
+      }
+      monthSelect.appendChild(option);
+    });
+    monthSelect.addEventListener('change', () => {
+      const newDate = new Date(date);
+      newDate.setMonth(parseInt(monthSelect.value));
+      renderCalendar(container, document, newDate);
+    });
+    header.appendChild(monthSelect);
+
+    const yearSelect = document.createElement('select');
+    yearSelect.classList.add('year-select');
+    const currentYear = date.getFullYear();
+    for (let i = currentYear - 10; i <= currentYear + 10; i++) {
+      const option = document.createElement('option');
+      option.value = i.toString();
+      option.textContent = i.toString();
+      if (i === currentYear) {
+        option.selected = true;
+      }
+      yearSelect.appendChild(option);
+    }
+    yearSelect.addEventListener('change', () => {
+      const newDate = new Date(date);
+      newDate.setFullYear(parseInt(yearSelect.value));
+      renderCalendar(container, document, newDate);
+    });
+    header.appendChild(yearSelect);
 
     const nextButton = document.createElement('button');
     nextButton.classList.add('next-month');

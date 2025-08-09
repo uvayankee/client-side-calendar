@@ -23,11 +23,16 @@ describe('Calendar', () => {
     if (container) {
       const today = new Date();
       renderCalendar(container, document, today);
-      const monthNameElement = container.querySelector('.month-name');
-      expect(monthNameElement).not.toBeNull();
-      if (monthNameElement) {
-        const expectedMonthYear = today.toLocaleString('default', { month: 'long', year: 'numeric' });
-        expect(monthNameElement.textContent).toBe(expectedMonthYear);
+
+      const monthSelect = container.querySelector('.month-select') as HTMLSelectElement;
+      const yearSelect = container.querySelector('.year-select') as HTMLSelectElement;
+
+      expect(monthSelect).not.toBeNull();
+      expect(yearSelect).not.toBeNull();
+
+      if (monthSelect && yearSelect) {
+        expect(parseInt(monthSelect.value)).toBe(today.getMonth());
+        expect(parseInt(yearSelect.value)).toBe(today.getFullYear());
       }
     } else {
       fail('container not found');
@@ -47,11 +52,18 @@ describe('Calendar', () => {
       expect(nextButton).not.toBeNull();
       if (nextButton) {
         nextButton.click();
-        const expectedMonthYear = new Date(initialDate.getFullYear(), initialDate.getMonth() + 1, 1).toLocaleString('default', { month: 'long', year: 'numeric' });
-        const monthNameElement = container.querySelector('.month-name');
-        expect(monthNameElement).not.toBeNull();
-        if (monthNameElement) {
-          expect(monthNameElement.textContent).toBe(expectedMonthYear);
+        const expectedMonth = (initialDate.getMonth() + 1) % 12;
+        const expectedYear = initialDate.getMonth() === 11 ? initialDate.getFullYear() + 1 : initialDate.getFullYear();
+
+        const monthSelect = container.querySelector('.month-select') as HTMLSelectElement;
+        const yearSelect = container.querySelector('.year-select') as HTMLSelectElement;
+
+        expect(monthSelect).not.toBeNull();
+        expect(yearSelect).not.toBeNull();
+
+        if (monthSelect && yearSelect) {
+          expect(parseInt(monthSelect.value)).toBe(expectedMonth);
+          expect(parseInt(yearSelect.value)).toBe(expectedYear);
         }
       }
     } else {
@@ -72,11 +84,18 @@ describe('Calendar', () => {
       expect(prevButton).not.toBeNull();
       if (prevButton) {
         prevButton.click();
-        const expectedMonthYear = new Date(initialDate.getFullYear(), initialDate.getMonth() - 1, 1).toLocaleString('default', { month: 'long', year: 'numeric' });
-        const monthNameElement = container.querySelector('.month-name');
-        expect(monthNameElement).not.toBeNull();
-        if (monthNameElement) {
-          expect(monthNameElement.textContent).toBe(expectedMonthYear);
+        const expectedMonth = (initialDate.getMonth() - 1 + 12) % 12;
+        const expectedYear = initialDate.getMonth() === 0 ? initialDate.getFullYear() - 1 : initialDate.getFullYear();
+
+        const monthSelect = container.querySelector('.month-select') as HTMLSelectElement;
+        const yearSelect = container.querySelector('.year-select') as HTMLSelectElement;
+
+        expect(monthSelect).not.toBeNull();
+        expect(yearSelect).not.toBeNull();
+
+        if (monthSelect && yearSelect) {
+          expect(parseInt(monthSelect.value)).toBe(expectedMonth);
+          expect(parseInt(yearSelect.value)).toBe(expectedYear);
         }
       }
     } else {
@@ -116,6 +135,74 @@ describe('Calendar', () => {
       expect(weekdayHeaders?.[5]?.textContent).toBe('Fri');
       expect(weekdayHeaders?.[6]?.textContent).toBe('Sat');
 
+    } else {
+      fail('container not found');
+    }
+  });
+
+  it('should update the calendar when a new month is selected from the dropdown', () => {
+    const dom = new JSDOM('<!DOCTYPE html><html><body><div id="calendar-container"></div></body></html>');
+    const document = dom.window.document;
+    const container = document.getElementById('calendar-container');
+
+    if (container) {
+      renderCalendar(container, document, new Date(2025, 0, 1)); // Start with January 2025
+
+      const monthSelect = container.querySelector('.month-select') as HTMLSelectElement;
+      expect(monthSelect).not.toBeNull();
+
+      if (monthSelect) {
+        monthSelect.value = '2'; // Select March (0-indexed)
+        monthSelect.dispatchEvent(new dom.window.Event('change'));
+
+        const expectedMonth = 2; // March
+        const expectedYear = 2025;
+
+        const newMonthSelect = container.querySelector('.month-select') as HTMLSelectElement;
+        const newYearSelect = container.querySelector('.year-select') as HTMLSelectElement;
+
+        expect(newMonthSelect).not.toBeNull();
+        expect(newYearSelect).not.toBeNull();
+
+        if (newMonthSelect && newYearSelect) {
+          expect(parseInt(newMonthSelect.value)).toBe(expectedMonth);
+          expect(parseInt(newYearSelect.value)).toBe(expectedYear);
+        }
+      }
+    } else {
+      fail('container not found');
+    }
+  });
+
+  it('should update the calendar when a new year is selected from the dropdown', () => {
+    const dom = new JSDOM('<!DOCTYPE html><html><body><div id="calendar-container"></div></body></html>');
+    const document = dom.window.document;
+    const container = document.getElementById('calendar-container');
+
+    if (container) {
+      renderCalendar(container, document, new Date(2025, 0, 1)); // Start with January 2025
+
+      const yearSelect = container.querySelector('.year-select') as HTMLSelectElement;
+      expect(yearSelect).not.toBeNull();
+
+      if (yearSelect) {
+        yearSelect.value = '2026';
+        yearSelect.dispatchEvent(new dom.window.Event('change'));
+
+        const expectedMonth = 0; // January
+        const expectedYear = 2026;
+
+        const newMonthSelect = container.querySelector('.month-select') as HTMLSelectElement;
+        const newYearSelect = container.querySelector('.year-select') as HTMLSelectElement;
+
+        expect(newMonthSelect).not.toBeNull();
+        expect(newYearSelect).not.toBeNull();
+
+        if (newMonthSelect && newYearSelect) {
+          expect(parseInt(newMonthSelect.value)).toBe(expectedMonth);
+          expect(parseInt(newYearSelect.value)).toBe(expectedYear);
+        }
+      }
     } else {
       fail('container not found');
     }
