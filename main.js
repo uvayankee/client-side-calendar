@@ -2,7 +2,7 @@
 (() => {
   // src/calendar.ts
   var events = [];
-  function renderCalendar(container, document2, date = /* @__PURE__ */ new Date()) {
+  function renderCalendar(container, document2, date = /* @__PURE__ */ new Date(), view = "month") {
     if (container) {
       container.innerHTML = "";
       const calendar = document2.createElement("div");
@@ -10,12 +10,16 @@
       const header = document2.createElement("div");
       header.classList.add("header");
       const prevButton = document2.createElement("button");
-      prevButton.classList.add("prev-month");
-      prevButton.textContent = "< Prev";
+      prevButton.classList.add("prev-button");
+      prevButton.textContent = view === "month" ? "< Prev" : "< Prev Week";
       prevButton.addEventListener("click", () => {
         const newDate = new Date(date);
-        newDate.setMonth(newDate.getMonth() - 1);
-        renderCalendar(container, document2, newDate);
+        if (view === "month") {
+          newDate.setMonth(newDate.getMonth() - 1);
+        } else {
+          newDate.setDate(newDate.getDate() - 7);
+        }
+        renderCalendar(container, document2, newDate, view);
       });
       header.appendChild(prevButton);
       const monthSelect = document2.createElement("select");
@@ -33,7 +37,7 @@
       monthSelect.addEventListener("change", () => {
         const newDate = new Date(date);
         newDate.setMonth(parseInt(monthSelect.value));
-        renderCalendar(container, document2, newDate);
+        renderCalendar(container, document2, newDate, view);
       });
       header.appendChild(monthSelect);
       const yearSelect = document2.createElement("select");
@@ -51,61 +55,104 @@
       yearSelect.addEventListener("change", () => {
         const newDate = new Date(date);
         newDate.setFullYear(parseInt(yearSelect.value));
-        renderCalendar(container, document2, newDate);
+        renderCalendar(container, document2, newDate, view);
       });
       header.appendChild(yearSelect);
       const nextButton = document2.createElement("button");
-      nextButton.classList.add("next-month");
-      nextButton.textContent = "Next >";
+      nextButton.classList.add("next-button");
+      nextButton.textContent = view === "month" ? "Next >" : "Next Week >";
       nextButton.addEventListener("click", () => {
         const newDate = new Date(date);
-        newDate.setMonth(newDate.getMonth() + 1);
-        renderCalendar(container, document2, newDate);
+        if (view === "month") {
+          newDate.setMonth(newDate.getMonth() + 1);
+        } else {
+          newDate.setDate(newDate.getDate() + 7);
+        }
+        renderCalendar(container, document2, newDate, view);
       });
       header.appendChild(nextButton);
       calendar.appendChild(header);
-      const daysGrid = document2.createElement("div");
-      daysGrid.classList.add("days-grid");
-      const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-      weekdays.forEach((day) => {
-        const weekdayElement = document2.createElement("div");
-        weekdayElement.classList.add("weekday");
-        weekdayElement.textContent = day;
-        daysGrid.appendChild(weekdayElement);
-      });
-      const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-      const lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-      const numDaysInMonth = lastDayOfMonth.getDate();
-      const firstDayOfWeek = firstDayOfMonth.getDay();
-      for (let i = 0; i < firstDayOfWeek; i++) {
-        const emptyDay = document2.createElement("div");
-        emptyDay.classList.add("day", "empty");
-        daysGrid.appendChild(emptyDay);
-      }
-      for (let i = 1; i <= numDaysInMonth; i++) {
-        const dayElement = document2.createElement("div");
-        dayElement.classList.add("day");
-        dayElement.textContent = i.toString();
-        const fullDate = new Date(date.getFullYear(), date.getMonth(), i);
-        dayElement.dataset.date = fullDate.toISOString().split("T")[0];
-        const eventsForDay = events.filter((event) => event.date === dayElement.dataset.date);
-        if (eventsForDay.length > 0) {
-          const eventList = document2.createElement("ul");
-          eventsForDay.forEach((event) => {
-            const eventItem = document2.createElement("li");
-            eventItem.classList.add("event");
-            eventItem.textContent = event.title;
-            eventList.appendChild(eventItem);
-          });
-          dayElement.appendChild(eventList);
-        }
-        dayElement.addEventListener("click", () => {
-          renderEventForm(fullDate, container, document2);
+      if (view === "month") {
+        const daysGrid = document2.createElement("div");
+        daysGrid.classList.add("days-grid");
+        const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        weekdays.forEach((day) => {
+          const weekdayElement = document2.createElement("div");
+          weekdayElement.classList.add("weekday");
+          weekdayElement.textContent = day;
+          daysGrid.appendChild(weekdayElement);
         });
-        daysGrid.appendChild(dayElement);
+        const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+        const lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+        const numDaysInMonth = lastDayOfMonth.getDate();
+        const firstDayOfWeek = firstDayOfMonth.getDay();
+        for (let i = 0; i < firstDayOfWeek; i++) {
+          const emptyDay = document2.createElement("div");
+          emptyDay.classList.add("day", "empty");
+          daysGrid.appendChild(emptyDay);
+        }
+        for (let i = 1; i <= numDaysInMonth; i++) {
+          const dayElement = document2.createElement("div");
+          dayElement.classList.add("day");
+          dayElement.textContent = i.toString();
+          const fullDate = new Date(date.getFullYear(), date.getMonth(), i);
+          dayElement.dataset.date = fullDate.toISOString().split("T")[0];
+          const eventsForDay = events.filter((event) => event.date === dayElement.dataset.date);
+          if (eventsForDay.length > 0) {
+            const eventList = document2.createElement("ul");
+            eventsForDay.forEach((event) => {
+              const eventItem = document2.createElement("li");
+              eventItem.classList.add("event");
+              eventItem.textContent = event.title;
+              eventList.appendChild(eventItem);
+            });
+            dayElement.appendChild(eventList);
+          }
+          dayElement.addEventListener("click", () => {
+            renderEventForm(fullDate, container, document2);
+          });
+          daysGrid.appendChild(dayElement);
+        }
+        calendar.appendChild(daysGrid);
+        container.appendChild(calendar);
+      } else if (view === "week") {
+        const daysGrid = document2.createElement("div");
+        daysGrid.classList.add("days-grid");
+        const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        weekdays.forEach((day) => {
+          const weekdayElement = document2.createElement("div");
+          weekdayElement.classList.add("weekday");
+          weekdayElement.textContent = day;
+          daysGrid.appendChild(weekdayElement);
+        });
+        const startOfWeek = new Date(date);
+        startOfWeek.setDate(date.getDate() - date.getDay());
+        for (let i = 0; i < 7; i++) {
+          const currentDay = new Date(startOfWeek);
+          currentDay.setDate(startOfWeek.getDate() + i);
+          const dayElement = document2.createElement("div");
+          dayElement.classList.add("day");
+          dayElement.textContent = currentDay.getDate().toString();
+          dayElement.dataset.date = currentDay.toISOString().split("T")[0];
+          const eventsForDay = events.filter((event) => event.date === dayElement.dataset.date);
+          if (eventsForDay.length > 0) {
+            const eventList = document2.createElement("ul");
+            eventsForDay.forEach((event) => {
+              const eventItem = document2.createElement("li");
+              eventItem.classList.add("event");
+              eventItem.textContent = event.title;
+              eventList.appendChild(eventItem);
+            });
+            dayElement.appendChild(eventList);
+          }
+          dayElement.addEventListener("click", () => {
+            renderEventForm(currentDay, container, document2);
+          });
+          daysGrid.appendChild(dayElement);
+        }
+        calendar.appendChild(daysGrid);
+        container.appendChild(calendar);
       }
-      calendar.appendChild(daysGrid);
-      container.appendChild(calendar);
     }
   }
   function renderEventForm(date, container, document2) {
@@ -171,10 +218,17 @@
   function main() {
     const calendarContainer = document.getElementById("calendar-container");
     if (calendarContainer) {
-      renderCalendar(calendarContainer, document);
+      renderCalendar(calendarContainer, document, /* @__PURE__ */ new Date(), "month");
+      const monthViewButton = document.getElementById("month-view-button");
+      const weekViewButton = document.getElementById("week-view-button");
+      monthViewButton?.addEventListener("click", () => {
+        renderCalendar(calendarContainer, document, /* @__PURE__ */ new Date(), "month");
+      });
+      weekViewButton?.addEventListener("click", () => {
+        renderCalendar(calendarContainer, document, /* @__PURE__ */ new Date(), "week");
+      });
     }
   }
-  window.main = main;
   document.addEventListener("DOMContentLoaded", main);
 })();
 //# sourceMappingURL=main.js.map
