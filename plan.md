@@ -6,9 +6,10 @@
 6. [x] Build a simple calendar that displays the current month on that landing page
 7. Augment the calendar to allow the user to click forward a month and back a month
 8. Modify the github actions to only run on PR, not also on push
-9. Augment the calendar to allow the user to select the year and month from drop downs
-10. Augment the calendar to allow the user to create an event
-11. Augment the calnedar to use client storage to save events
-12. Augment the calendar to allow the user to choose a weekly view
-13. Augment the calendar weekly view to allow the user to click forward a week and backward a week
-14. Augment the calendar to allow the user to choose a daily view
+9. The calendar should show all the days of the month week by week, with each week starting on Sunday.
+10. Augment the calendar to allow the user to select the year and month from drop downs
+11. Augment the calendar to allow the user to create an event
+12. Augment the calnedar to use client storage to save events
+13. Augment the calendar to allow the user to choose a weekly view
+14. Augment the calendar weekly view to allow the user to click forward a week and backward a week
+15. Augment the calendar to allow the user to choose a daily view
