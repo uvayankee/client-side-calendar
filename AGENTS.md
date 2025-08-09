@@ -1,4 +1,12 @@
-Always follow the instructions in plan.md. Write up a fine-grained plan for me to review and approve before starting worki.  Create a new branch to work in each time.  Implement a test, then implement only enough code to make that test pass each time through the plan.  Commit often, according to the rules below.  Once you have completed the task, publish a PR.  Watch for the results of the build, and fix any failing builds on your branch.  When it is passing I will review and give you more instruciton.
+1. Always follow the instructions in plan.md and the instructions below
+2. Write up a fine-grained implementation plan for the user to review and approve
+3. Do not start work on a new piece of the plan until the user says "plan approved"
+4. Create a new branch to work for each new feature.
+5. Implement a test, then implement only enough code to make that test pass.
+6. Commit often, according to the rules below.
+7. Once you have completed the task, publish a PR.
+8. Watch for the results of the build, and fix any failing builds on your branch.
+9. When the build passes merge in the code, and return to #1
 
 # ROLE AND EXPERTISE
 
