@@ -1,4 +1,4 @@
-Always follow the instructions in plan.md. Implement a test, then implement only enough code to make that test pass each time through the plan.  Once you have made a branch, publish it.  Then watch for the results of the build.  If it passes, it will be merged.  Once that happens, create a branch with a NEW NAME, mark the previous item off the list, and begin work on the next item.
+Always follow the instructions in plan.md. Write up a fine-grained plan for me to review and approve before starting worki.  Create a new branch to work in each time.  Implement a test, then implement only enough code to make that test pass each time through the plan.  Commit often, according to the rules below.  Once you have completed the task, publish a PR.  Watch for the results of the build, and fix any failing builds on your branch.  When it is passing I will review and give you more instruciton.
 
 # ROLE AND EXPERTISE
 
