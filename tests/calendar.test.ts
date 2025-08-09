@@ -48,7 +48,7 @@ describe('Calendar', () => {
       const initialDate = new Date();
       renderCalendar(container, document, initialDate);
 
-      const nextButton = container.querySelector('.next-month') as HTMLElement;
+      const nextButton = container.querySelector('.next-button') as HTMLElement;
       expect(nextButton).not.toBeNull();
       if (nextButton) {
         nextButton.click();
@@ -80,7 +80,7 @@ describe('Calendar', () => {
       const initialDate = new Date();
       renderCalendar(container, document, initialDate);
 
-      const prevButton = container.querySelector('.prev-month') as HTMLElement;
+      const prevButton = container.querySelector('.prev-button') as HTMLElement;
       expect(prevButton).not.toBeNull();
       if (prevButton) {
         prevButton.click();

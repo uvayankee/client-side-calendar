@@ -4,11 +4,19 @@ function main() { // Initialize the calendar application with linting
   const calendarContainer = document.getElementById('calendar-container');
 
   if (calendarContainer) {
-    renderCalendar(calendarContainer, document);
+    renderCalendar(calendarContainer, document, new Date(), 'month');
+
+    const monthViewButton = document.getElementById('month-view-button');
+    const weekViewButton = document.getElementById('week-view-button');
+
+    monthViewButton?.addEventListener('click', () => {
+      renderCalendar(calendarContainer, document, new Date(), 'month');
+    });
+
+    weekViewButton?.addEventListener('click', () => {
+      renderCalendar(calendarContainer, document, new Date(), 'week');
+    });
   }
 }
-
-// @ts-expect-error: main function is globally exposed for Cypress tests
-window.main = main;
 
 document.addEventListener('DOMContentLoaded', main);
