@@ -12,6 +12,35 @@ body {
     padding: 1rem;
 }
 
+.calendar {
+    display: flex;
+    flex-direction: column;
+}
+
+.calendar .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.calendar .header .month-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.calendar .header button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.calendar .header button:hover {
+    background-color: #0056b3;
+}
 
 .calendar .days-grid {
     display: grid;
