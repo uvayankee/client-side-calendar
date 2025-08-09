@@ -1,3 +1,5 @@
+
+
 # Repository Specific Learnings
 
 *   **Cypress Setup:** The `npx cypress open` command is interactive and should be avoided in a headless environment. Instead, `npx cypress install --force` and then running `cypress run --headless` is preferred.
