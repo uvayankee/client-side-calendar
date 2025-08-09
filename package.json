@@ -8,10 +8,7 @@
     "test": "jest",
     "lint": "eslint . --ext .ts",
     "serve": "npx http-server dist",
-    "cy:run": "start-server-and-test serve http://localhost:8080 cy:run:headless",
-    "cy:run:headless": "cypress run",
-    "cy:open": "start-server-and-test serve http://localhost:8080 cy:open:gui",
-    "cy:open:gui": "cypress open"
+    "cy:run": "cypress run"
   },
   "keywords": [],
   "author": "",
@@ -27,7 +24,7 @@
     "husky": "^9.1.7",
     "jest": "^30.0.5",
     "jest-environment-jsdom": "^30.0.5",
-    "start-server-and-test": "^2.0.13",
+    
     "ts-jest": "^29.4.1",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.39.0"

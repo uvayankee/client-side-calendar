@@ -21,7 +21,12 @@ jobs:
     - name: Run tests
       run: npm test
     - name: Run Cypress tests
-      run: npm run cy:run
+      run: |
+        npm run build
+        npm run serve &
+        npm run cy:run
+    - name: Build
+      run: npm run build
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
