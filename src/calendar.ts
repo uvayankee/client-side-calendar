@@ -1,3 +1,12 @@
+interface CalendarEvent {
+  id: string;
+  title: string;
+  description: string;
+  date: string; // YYYY-MM-DD
+}
+
+const events: CalendarEvent[] = [];
+
 export function renderCalendar(container: HTMLElement | null, document: Document, date: Date = new Date()): void {
   if (container) {
     container.innerHTML = ''; // Clear existing calendar
@@ -96,10 +105,97 @@ export function renderCalendar(container: HTMLElement | null, document: Document
       const dayElement = document.createElement('div');
       dayElement.classList.add('day');
       dayElement.textContent = i.toString();
+      const fullDate = new Date(date.getFullYear(), date.getMonth(), i);
+      dayElement.dataset.date = fullDate.toISOString().split('T')[0]; // YYYY-MM-DD
+
+      // Display events for this day
+      const eventsForDay = events.filter(event => event.date === dayElement.dataset.date);
+      if (eventsForDay.length > 0) {
+        const eventList = document.createElement('ul');
+        eventsForDay.forEach(event => {
+          const eventItem = document.createElement('li');
+          eventItem.classList.add('event');
+          eventItem.textContent = event.title;
+          eventList.appendChild(eventItem);
+        });
+        dayElement.appendChild(eventList);
+      }
+
+      dayElement.addEventListener('click', () => {
+        renderEventForm(fullDate, container, document);
+      });
       daysGrid.appendChild(dayElement);
     }
 
     calendar.appendChild(daysGrid);
     container.appendChild(calendar);
+  }
+}
+
+function renderEventForm(date: Date, container: HTMLElement | null, document: Document): void {
+  if (container) {
+    // Remove any existing form to ensure only one is open at a time
+    const existingForm = document.querySelector('.event-form-modal');
+    if (existingForm) {
+      existingForm.remove();
+    }
+
+    const modal = document.createElement('div');
+    modal.classList.add('event-form-modal');
+
+    const formContent = document.createElement('div');
+    formContent.classList.add('event-form-content');
+
+    const dateHeader = document.createElement('h3');
+    dateHeader.textContent = `Create Event for ${date.toDateString()}`;
+    formContent.appendChild(dateHeader);
+
+    const titleLabel = document.createElement('label');
+    titleLabel.textContent = 'Title:';
+    formContent.appendChild(titleLabel);
+    const titleInput = document.createElement('input');
+    titleInput.type = 'text';
+    titleInput.id = 'event-title';
+    formContent.appendChild(titleInput);
+
+    const descriptionLabel = document.createElement('label');
+    descriptionLabel.textContent = 'Description:';
+    formContent.appendChild(descriptionLabel);
+    const descriptionInput = document.createElement('textarea');
+    descriptionInput.id = 'event-description';
+    formContent.appendChild(descriptionInput);
+
+    const saveButton = document.createElement('button');
+    saveButton.id = 'save-event';
+    saveButton.textContent = 'Save Event';
+    saveButton.addEventListener('click', () => {
+      const title = titleInput.value;
+      const description = descriptionInput.value;
+
+      if (title && description) {
+        const newEvent: CalendarEvent = {
+          id: Date.now().toString(), // Simple unique ID
+          title,
+          description,
+          date: date.toISOString().split('T')[0],
+        };
+        events.push(newEvent);
+        modal.remove(); // Close the modal
+        renderCalendar(container, document, date); // Re-render calendar to show event
+      } else {
+        alert('Please enter both title and description.');
+      }
+    });
+    formContent.appendChild(saveButton);
+
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'Close';
+    closeButton.addEventListener('click', () => {
+      modal.remove();
+    });
+    formContent.appendChild(closeButton);
+
+    modal.appendChild(formContent);
+    container.appendChild(modal);
   }
 }

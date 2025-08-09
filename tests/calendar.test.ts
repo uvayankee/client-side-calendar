@@ -207,4 +207,47 @@ describe('Calendar', () => {
       fail('container not found');
     }
   });
+
+  it('should allow creating and displaying an event', () => {
+    const dom = new JSDOM('<!DOCTYPE html><html><body><div id="calendar-container"></div></body></html>');
+    const document = dom.window.document;
+    const container = document.getElementById('calendar-container');
+
+    if (container) {
+      const date = new Date(2025, 7, 15); // August 15, 2025
+      renderCalendar(container, document, date);
+
+      // Simulate clicking on a day to open the event creation form
+      const targetDate = new Date(2025, 7, 15); // August 15, 2025
+      const targetDateString = targetDate.toISOString().split('T')[0];
+      const dayElement = container.querySelector(`.day[data-date="${targetDateString}"]`) as HTMLElement;
+      expect(dayElement).not.toBeNull();
+      dayElement.click();
+
+      // Simulate filling and submitting the form
+      const eventTitleInput = container.querySelector('#event-title') as HTMLInputElement;
+      const eventDescriptionInput = container.querySelector('#event-description') as HTMLInputElement;
+      const saveEventButton = container.querySelector('#save-event') as HTMLElement;
+
+      expect(eventTitleInput).not.toBeNull();
+      expect(eventDescriptionInput).not.toBeNull();
+      expect(saveEventButton).not.toBeNull();
+
+      if (eventTitleInput && eventDescriptionInput && saveEventButton) {
+        eventTitleInput.value = 'Test Event';
+        eventDescriptionInput.value = 'This is a test event.';
+        saveEventButton.click();
+
+        // Re-query the dayElement after re-render
+        const updatedDayElement = container.querySelector(`.day[data-date="${targetDateString}"]`) as HTMLElement;
+
+        // Verify the event is displayed on the calendar
+        const eventDisplay = updatedDayElement?.querySelector('.event');
+        expect(eventDisplay).not.toBeNull();
+        expect(eventDisplay?.textContent).toContain('Test Event');
+      }
+    } else {
+      fail('container not found');
+    }
+  });
 });
