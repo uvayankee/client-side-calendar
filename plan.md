@@ -12,6 +12,7 @@
 12. [x] The user should be able to save events between sessions
 13. Add husky to the repo - ensure precommit runs build and test
 14. Implement eslint and add linting to the precommit
-15. The user should be able to choose a weekly view
-16. The user should be able to to click forward a week and backward a week in the weekly view
-17. The user should be able to choose a daily view
+15. The full month calendar view is not displaying.  The user only sees the month and year name, but not a grid of the days.
+16. The user should be able to choose a weekly view
+17. The user should be able to to click forward a week and backward a week in the weekly view
+18. The user should be able to choose a daily view
